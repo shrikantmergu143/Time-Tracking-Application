@@ -72,7 +72,7 @@ function TimeTrackPage() {
 
   const saveTime = () =>{
     if(time != 0){
-      console.log(pauseTimer())
+      pauseTimer()
       dispatch(setShowTaskFormModal({
         title:"Add Task",
         show:true,
@@ -83,7 +83,7 @@ function TimeTrackPage() {
       }))
     }
   }
-  console.log("timer", task, time)
+
   const callAddTask = (data) =>{
     dispatch(setStoreAddNewTask({...data, time_track:formatTime(time, true)}));
   }
@@ -135,9 +135,13 @@ function TimeTrackPage() {
               </Card.Body>
             </Card>
          </div>
+         <hr className="mb-0 mt-4"/>
          <section className="task-list">
             <Table  >
               <thead>
+                <tr>
+                  <th colSpan={4} align="center" className="text-center">Task List</th>
+                </tr>
                 <tr>
                   <th>Title</th>
                   <th>Description</th>

@@ -60,7 +60,7 @@ export default function TaskFormModal(props) {
     }
     const callFormSubmission = async () =>{
         if(validation()){
-            console.log("ModalPopup?.callBackModal", ModalPopup?.callBackModal)
+            // console.log("ModalPopup?.callBackModal", ModalPopup?.callBackModal)
             if(ModalPopup?.callBackModal){
                 await ModalPopup?.callBackModal(formData);
             }
