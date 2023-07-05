@@ -1,55 +1,17 @@
 /* eslint-disable eqeqeq */
-import {useState, useEffect, useRef} from "react";
+import {useState, useRef} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setShowTaskFormModal, setStoreAddNewTask, setStoreDeleteTask, setStoreEditTask } from "../../redux/actions";
 import { Button, Card, Container, Table } from "react-bootstrap";
-import Edit from "./../../assets/image/Edit.svg";
 
 function TimeTrackPage() {
   const dispatch = useDispatch();
-  const { ModalPopup, task } = useSelector((state)=>state?.allReducers);
-
-  // const [start, setStart] = useState(false);
-  // const [pause, setPause] = useState(false);
-  // const [sec, setSec] = useState(0);
-  // const [timer, setTimer] = useState('')
-
-  // useEffect(()=>{
-  //   let timer = null;
-  //   if(start & !pause){
-  //     timer = setInterval(() => {
-  //       setSec(sec=>sec+10);
-  //     }, 10);
-  //   }
-  //   else if(pause){
-  //     clearInterval(timer);
-  //   }
-
-  //   return ()=>{
-  //     clearInterval(timer);
-  //   }
-
-  // },[start, pause]);
-
-  // useEffect(()=>{
-  //   const date = new Date(0);
-  //   date.setSeconds(sec);
-
-  //   setTimer(date.toISOString().slice(11,19));
-  // })
-
-  // const handleStart = () =>{
-  //   setPause(false);
-  //   setStart(true);
-  // }
-  // const handlePause = () =>{
-  //   setStart(false);
-  //   setPause(true);
-  // }
+  const { task } = useSelector((state)=>state?.allReducers);
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const intervalRef = useRef(null);
+  const intervalRef = useRef(null); // this variable used to store the setInterval module functionality
 
+  // this function start the time
   const startTimer = () => {
     if (!isRunning) {
       setIsRunning(true);
@@ -58,18 +20,13 @@ function TimeTrackPage() {
       }, 10);
     }
   };
-
-  // const stopTimer = () => {
-  //   clearInterval(intervalRef.current);
-  //   setTime(0);
-  //   setIsRunning(false);
-  // };
-
+  // This function pause th timer
   const pauseTimer = () => {
     clearInterval(intervalRef.current);
     setIsRunning(false);
   };
 
+  // It Open the modal of save task when user click the save button
   const saveTime = () =>{
     if(time != 0){
       pauseTimer()
@@ -77,8 +34,8 @@ function TimeTrackPage() {
         title:"Add Task",
         show:true,
         data:null,
-        callBackModal:(data)=>callAddTask(data),
-        callBackCancel:startTimer,
+        callBackModal:(data)=>callAddTask(data), // It return an response from after user click save task in modal
+        callBackCancel:startTimer, // it call this function when user click cancel button
         saveButton:"Save Task"
       }))
     }
